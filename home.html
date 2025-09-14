@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday 3D Background</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing: border-box;
+    }
+    body{
+      height:100vh;
+      display:flex;
+      flex-direction: column;
+      overflow:hidden;
+      font-family: Arial, sans-serif;
+      color:white;
+      position: relative;
+    }
+
+    /* 3D Animated Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: linear-gradient(45deg, #ff6ec4, #7873f5, #fdbb2d, #22c1c3, #f64f59);
+      background-size: 500% 500%;
+      animation: gradientBG 15s ease infinite;
+      z-index:-2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 60%);
+      animation: pulse 8s infinite alternate;
+      z-index:-1;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    @keyframes pulse {
+      from {transform: scale(1);}
+      to {transform: scale(1.2);}
+    }
+
+    .a{
+      text-align:center;
+      color:#fff;
+      text-shadow: 2px 2px 8px #ff4081, 0 0 20px #ff80ab;
+      margin-top: 20px;
+      font-size: 2rem;
+    }
+
+    /* Navigation */
+    .nav{
+      display: flex;
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+    .nav1 a{
+      color: #fff;
+      font-size: 1.5rem;
+      text-decoration: none;
+      text-shadow: 0 0 8px #40c9ff;
+      transition: 0.3s;
+    }
+    .nav1 a:hover { color: yellow; }
+
+    .nav2{
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-around;
+      margin: 10px 20px;
+    }
+    .nav2 a{
+      color: #fff;
+      font-size: 1.2rem;
+      text-decoration: none;
+      margin-left: 15px;
+      text-shadow: 0 0 8px #ffeb3b;
+      transition: 0.3s;
+    }
+    .nav2 a:hover { color: #ff4081; }
+
+    .border{
+      border: 2px transparent white;
+      padding: 4px 8px;
+    }
+    .border:hover{
+      border:2px solid white;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Birthday Heading */
+    .b{
+      flex: 1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+    }
+    .b h1{
+      font-size:3rem;
+      color:#fff;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.6), 0 0 20px gold;
+      transform: perspective(600px) rotateX(15deg);
+      animation: floatText 4s ease-in-out infinite;
+    }
+    .b h1 i{
+      font-size: 2rem;
+      color: yellow;
+      text-shadow: 2px 2px 8px red;
+    }
+
+    @keyframes floatText {
+      0%,100%{transform: perspective(600px) rotateX(15deg) translateY(0);}
+      50%{transform: perspective(600px) rotateX(15deg) translateY(-20px);}
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before { top:-10px; left:0; }
+    .heart::after { left:-10px; top:0; }
+
+    @keyframes floatUp {
+      0% {transform: translateY(100vh) rotate(45deg) scale(0.5);}
+      100% {transform: translateY(-10vh) rotate(45deg) scale(1.2);}
+    }
+
+    /* Play Button (if autoplay blocked) */
+    #playBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid white;
+      border-radius: 12px;
+      padding: 10px 20px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      text-shadow: 0 0 8px black;
+      display: none;
+    }
+    #playBtn:hover {
+      background: rgba(255,255,255,0.4);
+    }
+  </style>
+</head>
+<body>
+  <h1 class="a"><u>Welcome to BirthDay Girl Website</u></h1>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <div class="nav1 border">
+      <a href="index.html">Home</a>
+    </div>
+  </div>
+  <div class="nav2">
+    <a href="contact.html" class="border"> Contact Us</a>
+    <a href="video.html" class="border">Video</a>
+    <a href="photo.html" class="border">Photos</a>
+    <a href="about.html" class="border"> About</a>
+  </div>
+
+  <!-- Birthday Heading -->
+  <div class="b">
+    <h1>🎂 Happy Birthday Beauty Girl<br><i>(<u>Laxmi Chaudhary</u>)</i></h1>
+  </div>
+
+  <!-- Birthday Audio -->
+  <audio id="birthdayAudio" autoplay loop>
+    <source src="birthday.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Play Button Fallback -->
+  <button id="playBtn">▶ Play Music</button>
+
+  <script>
+    // Floating hearts
+    function createHeart(){
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(()=> heart.remove(), 6000);
+    }
+    setInterval(createHeart, 300);
+
+    // Handle autoplay restrictions
+    const audio = document.getElementById("birthdayAudio");
+    const playBtn = document.getElementById("playBtn");
+
+    audio.play().catch(() => {
+      // If autoplay is blocked, show button
+      playBtn.style.display = "block";
+    });
+
+    playBtn.addEventListener("click", () => {
+      audio.play();
+      playBtn.style.display = "none";
+    });
+  </script>
+</body>
+</html>
